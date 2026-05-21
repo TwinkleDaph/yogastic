@@ -1,4 +1,4 @@
-import React, { useState,useRef} from 'react';
+import React, { useState} from 'react';
 import {
   AppBar,
   Toolbar,
@@ -35,12 +35,13 @@ const Header = () => {
   const { isAuthenticated, user, logout } = useAuth();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const buttonRef = useRef(null);
+ 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  const handleUserMenuOpen = () => {
-    setAnchorEl(buttonRef.current);
+  const handleUserMenuOpen = (event) => {
+    // setAnchorEl(buttonRef.current);
+    setAnchorEl(event.currentTarget);
   };
 
   const handleUserMenuClose = () => {
@@ -151,9 +152,9 @@ const Header = () => {
   const AuthButtons = () => {
     if (isAuthenticated) {
       return (
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, position: 'relative' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1}}>
           <IconButton
-          ref={buttonRef}
+         
             id={buttonId}
             aria-controls={open ? menuId : undefined}
             aria-haspopup="true"
@@ -180,15 +181,26 @@ const Header = () => {
             )}
           </IconButton>
           <Menu
-            id={menuId}
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleUserMenuClose}
-            slotProps={{
-              list: {
-                'aria-labelledby': buttonId,
-              },
-            }}
+        
+  id={menuId}
+  anchorEl={anchorEl}
+  open={open}
+  onClose={handleUserMenuClose}
+  anchorReference="anchorPosition"
+  anchorPosition={{
+    top: anchorEl
+      ? anchorEl.getBoundingClientRect().bottom + window.scrollY
+      : 0,
+    left: anchorEl
+      ? anchorEl.getBoundingClientRect().right - 250
+      : 0,
+  }}
+  PaperProps={{
+    sx: {
+      width: 250,
+      mt: 1,
+    },
+  }}
           >
             <Box sx={{ px: 2, py: 1 }}>
               <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
@@ -247,16 +259,19 @@ const Header = () => {
   return (
     <>
       <AppBar position="fixed" elevation={0}>
-        <Toolbar sx={{ justifyContent: 'space-between', py: 1 }}>
+        <Toolbar sx={{ display: 'flex',
+    alignItems: 'center',
+    py: 1 }}>
           <Logo />
           
           {!isMobile && (
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 3,   ml: 'auto',
+      mr: 2 }}>
               <NavigationItems />
             </Box>
           )}
           
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center'}}>
             {!isMobile && <AuthButtons />}
             
             {isMobile && (
