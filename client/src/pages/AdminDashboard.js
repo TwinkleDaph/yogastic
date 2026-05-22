@@ -640,27 +640,27 @@ const handleViewUserDetail = async (user) => {
 
   const renderPackagesTab = () => (
     <>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3, flexWrap: 'wrap', gap: 1 }}>
         <Typography variant="h6">Yoga Packages Management</Typography>
-        <Button variant="contained" startIcon={<Add />} onClick={() => handleOpenPkgForm()}>Add Package</Button>
+        <Button variant="contained" startIcon={<Add />} onClick={() => handleOpenPkgForm()} size="small">Add Package</Button>
       </Box>
 
       {pkgError && <Alert severity="error" sx={{ mb: 3 }}>{pkgError}</Alert>}
 
-      <Card>
-        <CardContent>
-          <TableContainer component={Paper}>
-            <Table>
+<Card>
+        <CardContent sx={{ p: { xs: 1, sm: 2 } }}>
+          <TableContainer component={Paper} sx={{ maxHeight: 440 }}>
+            <Table size="small" stickyHeader>
               <TableHead>
                 <TableRow>
-                  <TableCell>Package</TableCell>
-                  <TableCell>Category</TableCell>
-                  <TableCell>Duration</TableCell>
-                  <TableCell>Price</TableCell>
-                  <TableCell>Discount</TableCell>
-                  <TableCell>Level</TableCell>
-                  <TableCell>Status</TableCell>
-                  <TableCell>Actions</TableCell>
+                  <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>Package</TableCell>
+                  <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>Category</TableCell>
+                  <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' }, display: { xs: 'none', md: 'table-cell' } }}>Duration</TableCell>
+                  <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>Price</TableCell>
+                  <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' }, display: { xs: 'none', sm: 'table-cell' } }}>Discount</TableCell>
+                  <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' }, display: { xs: 'none', lg: 'table-cell' } }}>Level</TableCell>
+                  <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' }, display: { xs: 'none', sm: 'table-cell' } }}>Status</TableCell>
+                  <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -670,26 +670,26 @@ const handleViewUserDetail = async (user) => {
                   <TableRow><TableCell colSpan={8} align="center">No packages found</TableCell></TableRow>
                 ) : packages.map((pkg) => (
                   <TableRow key={pkg._id} hover>
-                    <TableCell>
-                      <Typography variant="body2" fontWeight="medium">{pkg.name}</Typography>
+                    <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
+                      <Typography variant="body2" fontWeight="medium" sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>{pkg.name}</Typography>
                     </TableCell>
-                    <TableCell><Chip label={pkg.category} size="small" variant="outlined" /></TableCell>
-                    <TableCell>{pkg.duration} {pkg.durationUnit}</TableCell>
-<TableCell>
+                    <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}><Chip label={pkg.category} size="small" variant="outlined" /></TableCell>
+                    <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' }, display: { xs: 'none', md: 'table-cell' } }}>{pkg.duration} {pkg.durationUnit}</TableCell>
+                    <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
                       {pkg.discount > 0 && (
-                        <Typography variant="caption" sx={{ textDecoration: 'line-through', mr: 0.5, color: 'text.secondary' }}>
-                          {`₹${pkg.price}`}
+                        <Typography variant="caption" sx={{ textDecoration: 'line-through', mr: 0.5, color: 'text.secondary', display: 'block' }}>
+                          ₹{pkg.price}
                         </Typography>
                       )}
                       <Typography variant="body2" fontWeight="500" color="success.main">
-                        {`₹${(pkg.price * (1 - pkg.discount / 100)).toFixed(2)}`}
+                        ₹{(pkg.price * (1 - pkg.discount / 100)).toFixed(2)}
                       </Typography>
                     </TableCell>
-                    <TableCell>
+                    <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' }, display: { xs: 'none', sm: 'table-cell' } }}>
                       {pkg.discount > 0 ? <Chip icon={<LocalOffer />} label={`${pkg.discount}%`} size="small" color="warning" /> : '-'}
                     </TableCell>
-                    <TableCell><Chip label={pkg.level} size="small" variant="outlined" /></TableCell>
-                    <TableCell>
+                    <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' }, display: { xs: 'none', lg: 'table-cell' } }}><Chip label={pkg.level} size="small" variant="outlined" /></TableCell>
+                    <TableCell sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' }, display: { xs: 'none', sm: 'table-cell' } }}>
                       <Chip label={pkg.isActive ? 'Active' : 'Inactive'} color={pkg.isActive ? 'success' : 'default'} size="small" variant="outlined" />
                     </TableCell>
                     <TableCell>
