@@ -37,18 +37,24 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/explore-yoga" element={<ExploreYoga />} />
                 <Route path="/contact" element={<Contact />} />
-                <Route path="/blogs" element={<Blogs />} />
-                <Route path="/blog/:slug" element={<BlogDetail />} />
-                <Route path="/packages" element={<Packages />} />
-                
-                {/* Authentication Routes */}
                 <Route path="/login" element={<Login />} />
-                {/* <Route path="/register" element={<Register />} /> */}
-                {/* <Route path="/registration-demo" element={<RegistrationDemo />} /> */}
-                {/* <Route path="/user-registration" element={<UserRegistration />} /> */}
-                {/* <Route path="/registration-success" element={<RegistrationSuccess />} /> */}
                 
-                {/* Protected Routes */}
+                {/* Protected Routes - User must be logged in */}
+                <Route path="/blogs" element={
+                  <ProtectedRoute>
+                    <Blogs />
+                  </ProtectedRoute>
+                } />
+                <Route path="/blog/:slug" element={
+                  <ProtectedRoute>
+                    <BlogDetail />
+                  </ProtectedRoute>
+                } />
+                <Route path="/packages" element={
+                  <ProtectedRoute>
+                    <Packages />
+                  </ProtectedRoute>
+                } />
                 <Route path="/dashboard" element={
                   <ProtectedRoute>
                     <UserDashboard />
