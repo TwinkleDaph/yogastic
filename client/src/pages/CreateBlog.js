@@ -420,21 +420,7 @@ const CreateBlog = () => {
             </Typography>
             
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-              {/* Status */}
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography variant="body2">Status:</Typography>
-                <FormControl size="small" sx={{ minWidth: 100 }}>
-                  <Select
-                    value={formData.status}
-                    onChange={(e) => handleInputChange('status', e.target.value)}
-                  >
-                    <MenuItem value="draft">Draft</MenuItem>
-                    <MenuItem value="published">Published</MenuItem>
-                    <MenuItem value="scheduled">Scheduled</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-
+             
               {/* Visibility */}
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant="body2">Visibility:</Typography>

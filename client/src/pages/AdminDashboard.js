@@ -288,11 +288,16 @@ const [editTxnForm, setEditTxnForm] = useState({
   };
 
   const handleSavePackage = async () => {
+    const price = parseFloat(pkgFormData.price);
+    if (!price || price < 1000 || price > 5000) {
+      setPkgError('Price must be between ₹1000 and ₹5000');
+      return;
+    }
     try {
       const packageData = {
         ...pkgFormData,
         duration: parseInt(pkgFormData.duration),
-        price: parseFloat(pkgFormData.price),
+        price: price,
         discount: parseFloat(pkgFormData.discount),
         features: pkgFormData.features.split('\n').filter(f => f.trim())
       };
@@ -664,11 +669,11 @@ const handleViewUserDetail = async (user) => {
 <TableCell>
                       {pkg.discount > 0 && (
                         <Typography variant="caption" sx={{ textDecoration: 'line-through', mr: 0.5, color: 'text.secondary' }}>
-                          {`$${pkg.price}`}
+                          {`₹${pkg.price}`}
                         </Typography>
                       )}
                       <Typography variant="body2" fontWeight="500" color="success.main">
-                        {`$${(pkg.price * (1 - pkg.discount / 100)).toFixed(2)}`}
+                        {`₹${(pkg.price * (1 - pkg.discount / 100)).toFixed(2)}`}
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -824,7 +829,7 @@ const handleViewUserDetail = async (user) => {
               </Grid>
             </Grid>
             <Grid container spacing={2}>
-              <Grid item xs={6}><TextField label="Price ($)" type="number" value={pkgFormData.price} onChange={(e) => setPkgFormData({ ...pkgFormData, price: e.target.value })} fullWidth /></Grid>
+              <Grid item xs={6}><TextField label="Price (₹)" type="number" value={pkgFormData.price} onChange={(e) => setPkgFormData({ ...pkgFormData, price: e.target.value })} inputProps={{ min: 1000, max: 5000 }} fullWidth /></Grid>
               <Grid item xs={6}><TextField label="Discount (%)" type="number" value={pkgFormData.discount} onChange={(e) => setPkgFormData({ ...pkgFormData, discount: e.target.value })} fullWidth /></Grid>
             </Grid>
             <Grid container spacing={2}>
@@ -905,7 +910,7 @@ const handleViewUserDetail = async (user) => {
                   <MuiMenuItem value="">No packages available</MuiMenuItem>
                 ) : (
                   packages.map(pkg => (
-                    <MuiMenuItem key={pkg._id} value={pkg._id}>{pkg.name} - ${pkg.price}</MuiMenuItem>
+                    <MuiMenuItem key={pkg._id} value={pkg._id}>{pkg.name} - ₹{pkg.price}</MuiMenuItem>
                   ))
                 )}
               </Select>

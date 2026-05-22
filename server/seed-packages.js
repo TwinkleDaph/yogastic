@@ -9,7 +9,7 @@ const packages = [
     description: 'Perfect for beginners. Get started with daily yoga sessions, breathing exercises, and meditation basics.',
     duration: 30,
     durationUnit: 'days',
-    price: 49.99,
+    price: 1500,
     discount: 10,
     features: [
       'Daily yoga video sessions',
@@ -28,7 +28,7 @@ const packages = [
     description: 'Take your practice to the next level with advanced poses, strength training, and flexibility routines.',
     duration: 60,
     durationUnit: 'days',
-    price: 89.99,
+    price: 2500,
     discount: 15,
     features: [
       'Advanced yoga sessions',
@@ -48,7 +48,7 @@ const packages = [
     description: 'Master advanced yoga techniques with personalized coaching and comprehensive wellness program.',
     duration: 90,
     durationUnit: 'days',
-    price: 129.99,
+    price: 3500,
     discount: 20,
     features: [
       'All advanced sessions',
@@ -69,7 +69,7 @@ const packages = [
     description: 'Begin your meditation journey with guided sessions, mindfulness training, and stress relief techniques.',
     duration: 30,
     durationUnit: 'days',
-    price: 29.99,
+    price: 1000,
     discount: 0,
     features: [
       'Guided meditation sessions',
@@ -88,7 +88,7 @@ const packages = [
     description: 'Advanced meditation program for those ready to explore deeper consciousness and inner peace.',
     duration: 60,
     durationUnit: 'days',
-    price: 59.99,
+    price: 2000,
     discount: 10,
     features: [
       'Advanced guided meditations',
@@ -108,7 +108,7 @@ const packages = [
     description: 'Comprehensive yoga and meditation program combining the best of both practices for total wellness.',
     duration: 3,
     durationUnit: 'months',
-    price: 199.99,
+    price: 4500,
     discount: 25,
     features: [
       'Unlimited yoga sessions',
@@ -129,7 +129,7 @@ const packages = [
     description: 'High-intensity yoga for fitness enthusiasts looking to build strength and stamina.',
     duration: 45,
     durationUnit: 'days',
-    price: 79.99,
+    price: 2800,
     discount: 10,
     features: [
       'Power yoga sessions',
@@ -149,7 +149,7 @@ const packages = [
     description: 'Start your mornings right with energizing yoga routines designed to boost energy and positivity.',
     duration: 30,
     durationUnit: 'days',
-    price: 39.99,
+    price: 1200,
     discount: 5,
     features: [
       'Morning yoga routines',
@@ -183,7 +183,7 @@ async function seedPackages() {
     console.log(`Inserted ${insertedPackages.length} packages`);
 
     insertedPackages.forEach(pkg => {
-      console.log(`  - ${pkg.name} (${pkg.duration} ${pkg.durationUnit}): $${pkg.price}`);
+      console.log(`  - ${pkg.name} (${pkg.duration} ${pkg.durationUnit}): ₹${pkg.price}`);
     });
 
     await mongoose.connection.close();

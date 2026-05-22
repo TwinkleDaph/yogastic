@@ -69,7 +69,7 @@ const Packages = () => {
 
   const getEffectivePrice = (pkg) => {
     if (pkg.discount > 0) {
-      return pkg.price * (10 - pkg.discount / 50000);
+      return pkg.price * (1 - pkg.discount / 100);
     }
     return pkg.price;
   };
@@ -174,7 +174,7 @@ const Packages = () => {
                   mr: 1
                 }}
               >
-                 ₹{5000}
+                 ₹{pkg.price.toFixed(2)}
               </Typography>
             )}
             <Typography variant="h4" sx={{ fontWeight: 700, color: 'primary.main' }}>
