@@ -9,7 +9,6 @@ import {
   CardMedia,
   Chip,
   Avatar,
-  Button,
   CircularProgress,
   Alert,
   Pagination,
@@ -17,22 +16,18 @@ import {
 } from '@mui/material';
 import {
   CalendarMonth,
-  Person,
-  ArrowForward,
   Visibility
 } from '@mui/icons-material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { blogAPI } from '../services/api';
 
 const Blogs = () => {
   const theme = useTheme();
-  const navigate = useNavigate();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [totalBlogs, setTotalBlogs] = useState(0);
 
   const fetchBlogs = async (pageNum = 1) => {
     try {
@@ -43,7 +38,6 @@ const Blogs = () => {
       if (response.data.success) {
         setBlogs(response.data.blogs || []);
         setTotalPages(response.data.pagination?.totalPages || 1);
-        setTotalBlogs(response.data.pagination?.totalBlogs || 0);
       } else {
         setError('Failed to load blogs');
       }

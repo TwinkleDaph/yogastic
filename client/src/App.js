@@ -12,10 +12,6 @@ import About from './pages/About';
 import ExploreYoga from './pages/ExploreYoga';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
-import Register from './pages/Register';
-import UserRegistration from './pages/UserRegistration';
-import RegistrationSuccess from './pages/RegistrationSuccess';
-import RegistrationDemo from './pages/RegistrationDemo';
 import Blogs from './pages/Blogs';
 import BlogDetail from './pages/BlogDetail';
 import CreateBlog from './pages/CreateBlog';
@@ -24,7 +20,6 @@ import Profile from './pages/Profile';
 import UserDashboard from './pages/UserDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import Packages from './pages/Packages';
-import Checkout from './pages/Checkout';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 import AdminRoute from './components/Auth/AdminRoute';
 
@@ -45,11 +40,6 @@ function App() {
                 <Route path="/blogs" element={<Blogs />} />
                 <Route path="/blog/:slug" element={<BlogDetail />} />
                 <Route path="/packages" element={<Packages />} />
-                <Route path="/checkout/:id" element={
-                  <ProtectedRoute>
-                    <AdminRoute />
-                  </ProtectedRoute>
-                } />
                 
                 {/* Authentication Routes */}
                 <Route path="/login" element={<Login />} />

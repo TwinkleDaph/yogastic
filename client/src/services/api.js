@@ -138,31 +138,7 @@ export const authAPI = {
   },
 
   // Change password
-  changePassword: (passwordData) => api.put('/auth/change-password', passwordData),
-
-  // Enhanced user registration (fallback to regular register with extra data)
-  enhancedRegister: (userData) => {
-    const formData = new FormData();
-    Object.keys(userData).forEach(key => {
-      if (userData[key] !== null && userData[key] !== undefined) {
-        if (key === 'dateOfBirth' && userData[key] instanceof Date) {
-          formData.append(key, userData[key].toISOString());
-        } else {
-          formData.append(key, userData[key]);
-        }
-      }
-    });
-    
-    // Try enhanced endpoint first, fallback to regular register
-    return api.post('/auth/register', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).catch(error => {
-      // If enhanced registration fails, the calling code will handle fallback
-      throw error;
-    });
-  }
+  changePassword: (passwordData) => api.put('/auth/change-password', passwordData)
 };
 
 // Blog API calls
