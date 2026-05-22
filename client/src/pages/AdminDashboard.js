@@ -289,16 +289,25 @@ const [editTxnForm, setEditTxnForm] = useState({
 
   const handleSavePackage = async () => {
     const price = parseFloat(pkgFormData.price);
-    if (!price || price < 1000 || price > 5000) {
+    if (!price || price < 1000 || price > 5000 || isNaN(price)) {
       setPkgError('Price must be between ₹1000 and ₹5000');
+      return;
+    }
+    const duration = parseInt(pkgFormData.duration);
+    if (!duration || isNaN(duration) || duration < 1) {
+      setPkgError('Duration must be a valid number');
+      return;
+    }
+    if (!pkgFormData.name || !pkgFormData.description) {
+      setPkgError('Please fill in all required fields');
       return;
     }
     try {
       const packageData = {
         ...pkgFormData,
-        duration: parseInt(pkgFormData.duration),
+        duration: duration,
         price: price,
-        discount: parseFloat(pkgFormData.discount),
+        discount: parseFloat(pkgFormData.discount) || 0,
         features: pkgFormData.features.split('\n').filter(f => f.trim())
       };
       if (editingPackage) {
@@ -310,7 +319,7 @@ const [editTxnForm, setEditTxnForm] = useState({
       setPkgDialogOpen(false);
     } catch (err) {
       console.error('Error saving package:', err);
-      setPkgError('Failed to save package');
+      setPkgError(err.response?.data?.message || err.response?.data?.error || 'Failed to save package');
     }
   };
 
@@ -779,11 +788,11 @@ const handleViewUserDetail = async (user) => {
                       <TableCell>
                         {txn.packageId?.discount > 0 && (
                           <Typography variant="caption" sx={{ textDecoration: 'line-through', mr: 0.5 }}>
-                            {`$${txn.originalPrice?.toFixed(2)}`}
+                            {`₹${txn.originalPrice?.toFixed(2)}`}
                           </Typography>
                         )}
                         <Typography variant="body2" color="success.main" fontWeight="500">
-                          {`$${txn.paymentAmount?.toFixed(2)}`}
+                          {`₹${txn.paymentAmount?.toFixed(2)}`}
                         </Typography>
                       </TableCell>
                       <TableCell>{formatDate(txn.paymentDate)}</TableCell>

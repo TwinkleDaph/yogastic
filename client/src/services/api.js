@@ -256,36 +256,14 @@ export const packageAPI = {
 
   // Create package (admin)
   createPackage: (packageData) => {
-    const formData = new FormData();
-    Object.keys(packageData).forEach(key => {
-      if (packageData[key] !== null && packageData[key] !== undefined) {
-        if (Array.isArray(packageData[key])) {
-          packageData[key].forEach(item => formData.append(key, item));
-        } else {
-          formData.append(key, packageData[key]);
-        }
-      }
-    });
-    return api.post('/packages', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    });
+    console.log('Creating package with data:', packageData);
+    return api.post('/packages', packageData);
   },
 
   // Update package (admin)
   updatePackage: (id, packageData) => {
-    const formData = new FormData();
-    Object.keys(packageData).forEach(key => {
-      if (packageData[key] !== null && packageData[key] !== undefined) {
-        if (Array.isArray(packageData[key])) {
-          packageData[key].forEach(item => formData.append(key, item));
-        } else {
-          formData.append(key, packageData[key]);
-        }
-      }
-    });
-    return api.put(`/packages/${id}`, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    });
+    console.log('Updating package:', id, packageData);
+    return api.put(`/packages/${id}`, packageData);
   },
 
   // Delete package (admin)
