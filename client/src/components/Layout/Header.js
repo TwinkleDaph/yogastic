@@ -39,9 +39,9 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  const handleUserMenuOpen = (event) => {
+  const handleUserMenuOpen = () => {
     // setAnchorEl(buttonRef.current);
-    setAnchorEl(event.currentTarget);
+    setAnchorEl(true)
   };
 
   const handleUserMenuClose = () => {
@@ -182,26 +182,20 @@ const Header = () => {
           </IconButton>
           <Menu
         
-  id={menuId}
-  anchorEl={anchorEl}
+     id={menuId}
   open={open}
   onClose={handleUserMenuClose}
   anchorReference="anchorPosition"
   anchorPosition={{
-    top: anchorEl
-      ? anchorEl.getBoundingClientRect().bottom + window.scrollY
-      : 0,
-    left: anchorEl
-      ? anchorEl.getBoundingClientRect().right - 250
-      : 0,
+    top: 70,
+    left: window.innerWidth - 260,
   }}
   PaperProps={{
     sx: {
       width: 250,
-      mt: 1,
     },
   }}
-          >
+>
             <Box sx={{ px: 2, py: 1 }}>
               <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
                 {user?.fullName || `${user?.firstName} ${user?.lastName}`}
