@@ -6,15 +6,9 @@ import {
   Grid,
   Card,
   CardContent,
-  CardActions,
   Typography,
-  Button,
   Chip,
   TextField,
-  MenuItem,
-  Select,
-  FormControl,
-  InputLabel,
   InputAdornment,
   Skeleton,
   Alert,
@@ -23,21 +17,13 @@ import {
 import {
   Spa,
   AccessTime,
-  AttachMoney,
   LocalOffer,
-  FilterList,
   Search,
-  CheckCircle,
-  Star,
-  TrendingUp
+  CheckCircle
 } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
 import { packageAPI } from '../services/api';
-import { useAuth } from '../contexts/AuthContext';
 
 const Packages = () => {
-  const navigate = useNavigate();
-  const { user } = useAuth();
   const theme = useTheme();
 
   const [packages, setPackages] = useState([]);
@@ -78,10 +64,10 @@ const Packages = () => {
     const matchesSearch = pkg.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       pkg.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = categoryFilter === 'all' || pkg.category === categoryFilter;
-    const matchesLevel = levelFilter === 'all' || pkg.level === levelFilter;
+const matchesLevel = levelFilter === 'all' || pkg.level === levelFilter;
     return matchesSearch && matchesCategory && matchesLevel;
   });
- const isAdmin = user?.role === 'admin';
+
   const PackageCard = ({ pkg }) => {
     const effectivePrice = getEffectivePrice(pkg);
     const hasDiscount = pkg.discount > 0;
@@ -185,28 +171,6 @@ const Packages = () => {
             </Typography>
           </Box>
         </CardContent>
-
-        <CardActions sx={{ p: 3, pt: 0 }}>
-          {isAdmin ? (
-    <Button
-      variant="contained"
-      fullWidth
-      size="large"
-      onClick={() => navigate(`/checkout/${pkg._id}`)}
-    >
-      Select Package
-    </Button>
-  ) : (
-    <Button
-      variant="outlined"
-      fullWidth
-      size="large"
-      disabled
-    >
-      Subscription Reserved for Admin
-    </Button>
-  )}
-        </CardActions>
       </Card>
     );
   };
@@ -270,9 +234,6 @@ const Packages = () => {
                     <Skeleton variant="text" height={60} />
                     <Skeleton variant="text" height={40} width="30%" />
                   </CardContent>
-                  <CardActions>
-                    <Skeleton variant="rectangular" height={36} />
-                  </CardActions>
                 </Card>
               </Grid>
             ))}
@@ -283,7 +244,7 @@ const Packages = () => {
               <Grid item xs={12} sm={6} md={4} key={pkg._id}>
                 <Fade in timeout={500}>
                   <Box>
-                    <PackageCard pkg={pkg} isAdmin={isAdmin}/>
+                    <PackageCard pkg={pkg}/>
                   </Box>
                 </Fade>
               </Grid>

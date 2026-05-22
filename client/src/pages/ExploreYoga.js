@@ -19,6 +19,7 @@ import {
   AccessTime,
   ArrowForward
 } from '@mui/icons-material';
+import { Link} from 'react-router-dom';
 
 const ExploreYoga = () => {
   const theme = useTheme();
@@ -159,7 +160,8 @@ const ExploreYoga = () => {
           </Typography>
           <Button
             variant="outlined"
-                     
+                    component={Link}
+                                to="/contact"
                     size="large"
                     sx={{
                       borderColor: theme.palette.text.primary,

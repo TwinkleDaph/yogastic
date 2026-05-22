@@ -12,10 +12,6 @@ import About from './pages/About';
 import ExploreYoga from './pages/ExploreYoga';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
-import Register from './pages/Register';
-import UserRegistration from './pages/UserRegistration';
-import RegistrationSuccess from './pages/RegistrationSuccess';
-import RegistrationDemo from './pages/RegistrationDemo';
 import Blogs from './pages/Blogs';
 import BlogDetail from './pages/BlogDetail';
 import CreateBlog from './pages/CreateBlog';
@@ -24,7 +20,6 @@ import Profile from './pages/Profile';
 import UserDashboard from './pages/UserDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import Packages from './pages/Packages';
-import Checkout from './pages/Checkout';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 import AdminRoute from './components/Auth/AdminRoute';
 
@@ -42,23 +37,24 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/explore-yoga" element={<ExploreYoga />} />
                 <Route path="/contact" element={<Contact />} />
-                <Route path="/blogs" element={<Blogs />} />
-                <Route path="/blog/:slug" element={<BlogDetail />} />
-                <Route path="/packages" element={<Packages />} />
-                <Route path="/checkout/:id" element={
+                <Route path="/login" element={<Login />} />
+                
+                {/* Protected Routes - User must be logged in */}
+                <Route path="/blogs" element={
                   <ProtectedRoute>
-                    <AdminRoute />
+                    <Blogs />
                   </ProtectedRoute>
                 } />
-                
-                {/* Authentication Routes */}
-                <Route path="/login" element={<Login />} />
-                {/* <Route path="/register" element={<Register />} /> */}
-                {/* <Route path="/registration-demo" element={<RegistrationDemo />} /> */}
-                {/* <Route path="/user-registration" element={<UserRegistration />} /> */}
-                {/* <Route path="/registration-success" element={<RegistrationSuccess />} /> */}
-                
-                {/* Protected Routes */}
+                <Route path="/blog/:slug" element={
+                  <ProtectedRoute>
+                    <BlogDetail />
+                  </ProtectedRoute>
+                } />
+                <Route path="/packages" element={
+                  <ProtectedRoute>
+                    <Packages />
+                  </ProtectedRoute>
+                } />
                 <Route path="/dashboard" element={
                   <ProtectedRoute>
                     <UserDashboard />

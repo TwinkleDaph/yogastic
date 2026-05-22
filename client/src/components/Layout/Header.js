@@ -58,8 +58,10 @@ const Header = () => {
     { label: 'Home', path: '/' },
     { label: 'About Us', path: '/about' },
     { label: 'Services', path: '/explore-yoga' },
-    { label: 'Packages', path: '/packages' },
-    { label: 'Blogs', path: '/blogs' },
+    ...(isAuthenticated ? [
+      { label: 'Packages', path: '/packages' },
+      { label: 'Blogs', path: '/blogs' }
+    ] : []),
     { label: 'Contact Us', path: '/contact' }
   ];
 

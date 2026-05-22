@@ -248,25 +248,7 @@ const Home = () => {
           </Grid>
         </Container>
 
-        {/* Scroll indicator */}
-        <Box
-          sx={{
-            position: 'absolute',
-            bottom: 30,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            color: 'white',
-            textAlign: 'center'
-          }}
-        >
-          <ArrowForward
-            sx={{
-              fontSize: 24,
-              transform: 'rotate(90deg)',
-              animation: 'bounce 2s infinite'
-            }}
-          />
-        </Box>
+       
       </Box>
 
       {/* Services Section */}

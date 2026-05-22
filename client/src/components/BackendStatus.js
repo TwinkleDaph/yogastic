@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Alert, Button, Typography } from '@mui/material';
-import { Refresh, CheckCircle, Error } from '@mui/icons-material';
+import { Refresh, Error } from '@mui/icons-material';
 import api from '../services/api';
 
 const BackendStatus = () => {

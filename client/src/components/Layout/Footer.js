@@ -22,7 +22,6 @@ import {
   Phone,
   LocationOn
 } from '@mui/icons-material';
-import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -238,7 +237,7 @@ const handleScrollToTop = () => {
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
                 <LocationOn sx={{ fontSize: 18,color: theme.palette.background.paper, mt: 0.2 }} />
-                <Typography variant="body2" sx={{ color: theme.palette.background.pape,color: theme.palette.background.paper}}>
+                <Typography variant="body2" sx={{ color: theme.palette.background.paper}}>
                   21 King Street Melbourne,<br />3000, Australia
                 </Typography>
               </Box>

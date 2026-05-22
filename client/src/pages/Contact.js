@@ -5,7 +5,6 @@ import {
   Typography,
   Grid,
   Card,
-  CardContent,
   TextField,
   Button,
   useTheme,
@@ -19,7 +18,6 @@ import {
   AccessTime
 } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
-import { bgcolor } from '@mui/system';
 
 const Contact = () => {
   const theme = useTheme();
