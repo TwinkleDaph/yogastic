@@ -183,7 +183,7 @@ const Checkout = () => {
               <Grid item xs={6}>
                 <Typography variant="body2" color="text.secondary">Amount Paid</Typography>
                 <Typography variant="body1" sx={{ fontWeight: 500, color: 'success.main' }}>
-                  ${transaction.paymentAmount.toFixed(2)}
+                  ₹{transaction.paymentAmount.toFixed(2)}
                 </Typography>
               </Grid>
               <Grid item xs={6}>
@@ -350,13 +350,13 @@ const Checkout = () => {
                 <Box sx={{ mb: 2 }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
                     <Typography variant="body1">Original Price</Typography>
-                    <Typography variant="body1">${pkg.price.toFixed(2)}</Typography>
+                    <Typography variant="body1">₹{pkg.price.toFixed(2)}</Typography>
                   </Box>
                   {pkg.discount > 0 && (
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
                       <Typography variant="body1" color="success.main">Discount</Typography>
                       <Typography variant="body1" color="success.main">
-                        -${(pkg.price * pkg.discount / 100).toFixed(2)}
+                        -₹{(pkg.price * pkg.discount / 100).toFixed(2)}
                       </Typography>
                     </Box>
                   )}
@@ -364,12 +364,12 @@ const Checkout = () => {
 
                 <Divider sx={{ my: 2 }} />
 
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
-                  <Typography variant="h6">Total</Typography>
-                  <Typography variant="h4" sx={{ fontWeight: 700, color: 'primary.main' }}>
-                    ${getEffectivePrice().toFixed(2)}
-                  </Typography>
-                </Box>
+<Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
+                    <Typography variant="h6">Total</Typography>
+                    <Typography variant="h4" sx={{ fontWeight: 700, color: 'primary.main' }}>
+                      ₹{getEffectivePrice().toFixed(2)}
+                    </Typography>
+                  </Box>
 
                 <Button
                   variant="contained"

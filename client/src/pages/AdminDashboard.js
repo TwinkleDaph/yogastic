@@ -288,12 +288,26 @@ const [editTxnForm, setEditTxnForm] = useState({
   };
 
   const handleSavePackage = async () => {
+    const price = parseFloat(pkgFormData.price);
+    if (!price || price < 1000 || price > 5000 || isNaN(price)) {
+      setPkgError('Price must be between ₹1000 and ₹5000');
+      return;
+    }
+    const duration = parseInt(pkgFormData.duration);
+    if (!duration || isNaN(duration) || duration < 1) {
+      setPkgError('Duration must be a valid number');
+      return;
+    }
+    if (!pkgFormData.name || !pkgFormData.description) {
+      setPkgError('Please fill in all required fields');
+      return;
+    }
     try {
       const packageData = {
         ...pkgFormData,
-        duration: parseInt(pkgFormData.duration),
-        price: parseFloat(pkgFormData.price),
-        discount: parseFloat(pkgFormData.discount),
+        duration: duration,
+        price: price,
+        discount: parseFloat(pkgFormData.discount) || 0,
         features: pkgFormData.features.split('\n').filter(f => f.trim())
       };
       if (editingPackage) {
@@ -305,7 +319,7 @@ const [editTxnForm, setEditTxnForm] = useState({
       setPkgDialogOpen(false);
     } catch (err) {
       console.error('Error saving package:', err);
-      setPkgError('Failed to save package');
+      setPkgError(err.response?.data?.message || err.response?.data?.error || 'Failed to save package');
     }
   };
 
@@ -664,11 +678,11 @@ const handleViewUserDetail = async (user) => {
 <TableCell>
                       {pkg.discount > 0 && (
                         <Typography variant="caption" sx={{ textDecoration: 'line-through', mr: 0.5, color: 'text.secondary' }}>
-                          {`$${pkg.price}`}
+                          {`₹${pkg.price}`}
                         </Typography>
                       )}
                       <Typography variant="body2" fontWeight="500" color="success.main">
-                        {`$${(pkg.price * (1 - pkg.discount / 100)).toFixed(2)}`}
+                        {`₹${(pkg.price * (1 - pkg.discount / 100)).toFixed(2)}`}
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -774,11 +788,11 @@ const handleViewUserDetail = async (user) => {
                       <TableCell>
                         {txn.packageId?.discount > 0 && (
                           <Typography variant="caption" sx={{ textDecoration: 'line-through', mr: 0.5 }}>
-                            {`$${txn.originalPrice?.toFixed(2)}`}
+                            {`₹${txn.originalPrice?.toFixed(2)}`}
                           </Typography>
                         )}
                         <Typography variant="body2" color="success.main" fontWeight="500">
-                          {`$${txn.paymentAmount?.toFixed(2)}`}
+                          {`₹${txn.paymentAmount?.toFixed(2)}`}
                         </Typography>
                       </TableCell>
                       <TableCell>{formatDate(txn.paymentDate)}</TableCell>
@@ -824,7 +838,7 @@ const handleViewUserDetail = async (user) => {
               </Grid>
             </Grid>
             <Grid container spacing={2}>
-              <Grid item xs={6}><TextField label="Price ($)" type="number" value={pkgFormData.price} onChange={(e) => setPkgFormData({ ...pkgFormData, price: e.target.value })} fullWidth /></Grid>
+              <Grid item xs={6}><TextField label="Price (₹)" type="number" value={pkgFormData.price} onChange={(e) => setPkgFormData({ ...pkgFormData, price: e.target.value })} inputProps={{ min: 1000, max: 5000 }} fullWidth /></Grid>
               <Grid item xs={6}><TextField label="Discount (%)" type="number" value={pkgFormData.discount} onChange={(e) => setPkgFormData({ ...pkgFormData, discount: e.target.value })} fullWidth /></Grid>
             </Grid>
             <Grid container spacing={2}>
@@ -905,7 +919,7 @@ const handleViewUserDetail = async (user) => {
                   <MuiMenuItem value="">No packages available</MuiMenuItem>
                 ) : (
                   packages.map(pkg => (
-                    <MuiMenuItem key={pkg._id} value={pkg._id}>{pkg.name} - ${pkg.price}</MuiMenuItem>
+                    <MuiMenuItem key={pkg._id} value={pkg._id}>{pkg.name} - ₹{pkg.price}</MuiMenuItem>
                   ))
                 )}
               </Select>

@@ -58,20 +58,34 @@ const packageController = {
   createPackage: async (req, res) => {
     try {
       const { name, description, duration, durationUnit, price, discount, features, category, level } = req.body;
-      
+
+      console.log('Creating package with data:', req.body);
+
+      const parsedDuration = parseInt(duration);
+      const parsedPrice = parseFloat(price);
+
+      if (!name || !description || !duration || isNaN(parsedDuration) || parsedDuration < 1) {
+        return res.status(400).json({ success: false, message: 'Name, description, and valid duration are required' });
+      }
+      if (!price || isNaN(parsedPrice) || parsedPrice < 0) {
+        return res.status(400).json({ success: false, message: 'Valid price is required' });
+      }
+
       const packageData = {
         name,
         description,
-        duration: parseInt(duration),
-        durationUnit,
-        price: parseFloat(price),
+        duration: parsedDuration,
+        durationUnit: durationUnit || 'days',
+        price: parsedPrice,
         discount: parseFloat(discount) || 0,
         features: features || [],
-        category,
-        level,
-        createdBy: req.user._id
+        category: category || 'yoga',
+        level: level || 'all',
+        createdBy: req.user ? req.user._id : null
       };
-      
+
+      console.log('Package data to save:', packageData);
+
       const newPackage = new Package(packageData);
       await newPackage.save();
       
@@ -84,7 +98,8 @@ const packageController = {
       console.error('Create package error:', error);
       res.status(500).json({
         success: false,
-        message: 'Failed to create package'
+        message: error.message || 'Failed to create package',
+        error: error.message
       });
     }
   },
